@@ -1,0 +1,10 @@
+^Z:\COCOS2D\EXTERNAL\MD5\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SZ:/ -BZ:/gc-project6 --check-stamp-file Z:/gc-project6/engine/external/md5/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
