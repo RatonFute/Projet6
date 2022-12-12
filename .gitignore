@@ -17,12 +17,6 @@
 mono_crash.*
 
 # Build results
-gc-project6.dir
-gc-project6/bin
-gc-project6/engine
-gc-project6/lib
-gc-project6/[Ww][Ii][Nn]32/
-gc-project6/[Dd]ebug/
 #[Dd]ebug/
 [Dd]ebugPublic/
 [Rr]elease/
@@ -367,3 +361,12 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Cocos project
+gc-project6.dir
+gc-project6/bin
+gc-project6/lib
+gc-project6/engine
+gc-project6/[Ww][Ii][Nn]32/
+gc-project6/[Dd]ebug/
+*.tlog
