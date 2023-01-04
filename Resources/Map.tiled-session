@@ -1,0 +1,54 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "",
+    "expandedProjectPaths": [
+    ],
+    "fileStates": {
+        "Map.tmx": {
+            "scale": 0.4371759259259259,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 363.69797733771054,
+                "y": 465.48766281901936
+            }
+        },
+        "Map2..tmx": {
+            "scale": 0.2459114583333333,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 963.7615164672245,
+                "y": 546.9448268558722
+            }
+        },
+        "Map2.tmx": {
+            "scale": 0.4537239583333333,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 493.69224588188035,
+                "y": 587.361533605005
+            }
+        },
+        "Map3.tmx": {
+            "scale": 0.2459114583333333,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 963.7615164672245,
+                "y": 546.9448268558722
+            }
+        }
+    },
+    "last.exportedFilePath": "Z:/Resources",
+    "map.height": 34,
+    "map.lastUsedExportFilter": "Tous les Fichiers (*)",
+    "map.lastUsedFormat": "tmx",
+    "map.width": 60,
+    "openFiles": [
+    ],
+    "project": "Map.tiled-project",
+    "recentFiles": [
+        "Map.tmx"
+    ]
+}
