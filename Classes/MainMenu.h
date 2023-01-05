@@ -10,10 +10,8 @@ public:
 
     virtual bool init();
 
-    void menuCloseCallback(cocos2d::Ref* pSender);
-    void onMouseUp(cocos2d::Event* event);
-
     void Play(cocos2d::Ref* pSender);
+    void Quit(cocos2d::Ref* pSender);
     // implement the "static create()" method manually
     CREATE_FUNC(MainMenu);
 

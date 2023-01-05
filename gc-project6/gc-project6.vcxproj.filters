@@ -16,6 +16,9 @@
     <ClCompile Include="..\Classes\Game.cpp">
       <Filter>Source Files\Classes</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\GameOver.cpp">
+      <Filter>Source Files\Classes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Z:\Classes\AppDelegate.h">
@@ -79,6 +82,9 @@
       <Filter>Resources</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Game.h">
+      <Filter>Source Files\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameOver.h">
       <Filter>Source Files\Classes</Filter>
     </ClInclude>
   </ItemGroup>

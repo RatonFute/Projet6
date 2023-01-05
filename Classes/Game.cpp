@@ -1,5 +1,14 @@
-#define SPEED 1.0
 #include "Game.h"
+#include "MainMenu.h"
+#include "GameOver.h"
+
+#define SPEED 1.0
+//Collision category
+#define PLAYER 1
+#define WALL 2
+#define FLOOR 3
+#define ENDFLAG 4
+#define JUMPBOX 5
 
 USING_NS_CC;
 
@@ -16,9 +25,9 @@ static void problemLoading(const char* filename)
 }
 
 Game::Game() {
-    _sprite = Sprite::create("CloseSelected.png");
+    
     _JumpSprite = Sprite::create("CloseSelected.png");
-    _spriteBody = PhysicsBody::createBox(Size(20.0f, 20.0f), PhysicsMaterial(0.0f, 1.5f, 0.2f));
+    
     _JumpBox = PhysicsBody::createBox(Size(50, 50), PhysicsMaterial(0.0f, 0.0f, 0.0f));
     _moveDir = -1;
     _jump = 450.0;
@@ -43,6 +52,8 @@ bool Game::init()
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
+    auto map = TMXTiledMap::create("Map.tmx");
+    this->addChild(map);
 
 
     if (_sprite == nullptr)
@@ -51,16 +62,19 @@ bool Game::init()
     }
     else
     {
+        for (int i = 0; i < 3; i++) {
+            _sprite = Sprite::create("CloseSelected.png");
+            _sprite->setPosition(Vec2(450, 200));
+            _spriteBody = PhysicsBody::createBox(Size(20.0f, 20.0f), PhysicsMaterial(0.0f, 1.5f, 0.2f));
+            _spriteBody->setDynamic(true);
+            _spriteBody->setVelocityLimit(200.0);
+            _spriteBody->setRotationEnable(false);
+            _spriteBody->setCollisionBitmask(1);
+            _spriteBody->setContactTestBitmask(true);
+            _sprite->addComponent(_spriteBody);
+        }
         //player
-        _sprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, 70));
-
-        _spriteBody->setDynamic(true);
-        _spriteBody->setVelocityLimit(100.0);
-        _spriteBody->setPositionOffset(Size(0.0f, -5.0f));
-        _spriteBody->setRotationEnable(false);
-        _spriteBody->setCollisionBitmask(1);
-        _spriteBody->setContactTestBitmask(true);
-        _sprite->addComponent(_spriteBody);
+        
     }
 
     auto label = Label::createWithTTF("Hello World", "fonts/Marker Felt.ttf", 24);
@@ -93,32 +107,33 @@ bool Game::init()
     char* path2 = "CloseSelected.png";
     char* poke = "CloseSelected.png";
 
+    //----------------SPRITES----------------
+    
     //walls
-    auto Lwall = createWall(path2, origin.x, visibleSize.height / 2 + origin.y, 5.0, 320.0);
-    auto Rwall = createWall(path2, visibleSize.width + origin.x, visibleSize.height / 2 + origin.y, 5.0, 320.0);
+    Sprite* Lwall = createBlock(path2, origin.x, visibleSize.height / 2 + origin.y, 5.0, 320.0, WALL);
+    Sprite* Rwall = createBlock(path2, visibleSize.width + origin.x, visibleSize.height / 2 + origin.y, 5.0, 320.0, WALL);
+    Sprite* wallTopR = createBlock(path2, 280, 180, 5.0, 50.0, WALL);
     addChild(Lwall);
     addChild(Rwall);
+    addChild(wallTopR);
 
     //Floor
-    cocos2d::Sprite* FloorSprite = Sprite::create(path);
-    FloorSprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, 0.0));
-    cocos2d::PhysicsBody* FloorBox = PhysicsBody::createBox(Size(300.0, 5.0), PhysicsMaterial(1.0f, 0.1f, 1.0f));
-    FloorBox->setDynamic(false);
-    FloorBox->setCollisionBitmask(4);
-    FloorBox->setContactTestBitmask(true);
-    FloorSprite->addComponent(FloorBox);
-    addChild(FloorSprite);
+    Sprite* FloorLvl = createBlock(path, visibleSize.width / 2 + origin.x, origin.y, visibleSize.width, 5.0, FLOOR);
+    Sprite* Plat1 = createBlock(path, 120, 100, 260, 15.0, FLOOR);
+    Sprite* Plat2 = createBlock(path, 400, 160, 260, 15.0, FLOOR);
+    addChild(FloorLvl);
+    addChild(Plat1);
+    addChild(Plat2);
 
-    //jump box test
+    //end flag
+    Sprite* Flag = createBlock(path, 120, 120, 5, 50.0, ENDFLAG);
+    addChild(Flag);
 
-    _JumpSprite->setPosition(Vec2(150, 30));
-    _JumpBox->setDynamic(false);
-    _JumpBox->setCollisionBitmask(3);
-    _JumpBox->setContactTestBitmask(true);
-    _JumpSprite->addComponent(_JumpBox);
-    addChild(_JumpSprite);
+    //jump box
+    Sprite* JumpBox = createBlock(path, 300, 170, 20, 20, JUMPBOX);
+    addChild(JumpBox);
 
-    this->addChild(_sprite);
+    addChild(_sprite);
 
 
 
@@ -126,18 +141,20 @@ bool Game::init()
     return true;
 }
 
-//path, posX, posY, sizeX, sizeY
-cocos2d::Sprite* Game::createWall(char* SpritePath, float posX, float posY, float sizeX, float sizeY)
+//path of the sprite, position X, position Y, Width, Height, Collision category
+cocos2d::Sprite* Game::createBlock(char* SpritePath, float posX, float posY, float sizeX, float sizeY, int ColCat)
 {
     cocos2d::Sprite* spriteBox = Sprite::create(SpritePath);
     spriteBox->setPosition(Vec2(posX, posY));
     cocos2d::PhysicsBody* Box = PhysicsBody::createBox(Size(sizeX, sizeY), PhysicsMaterial(0.0f, 0.0f, 0.0f));
     Box->setDynamic(false);
-    Box->setCollisionBitmask(2);
+    Box->setCollisionBitmask(ColCat);
     Box->setContactTestBitmask(true);
     spriteBox->addComponent(Box);
     return spriteBox;
 }
+
+
 
 void Game::update(float dt) {
 
@@ -146,20 +163,22 @@ void Game::update(float dt) {
     _time -= dt;
     if (_time <= 0) {
         _time = 0;
-
         Director::getInstance()->popScene();
-
     }
 
 }
 
+//----------------------COLLISION MANAGEMENT-----------------------
 bool Game::onContactBegin(cocos2d::PhysicsContact& contact)
 {
     PhysicsBody* a = contact.getShapeA()->getBody();
     PhysicsBody* b = contact.getShapeB()->getBody();
 
-    // check if the bodies have collided
-    if ((1 == a->getCollisionBitmask() && 2 == b->getCollisionBitmask()) || (2 == a->getCollisionBitmask() && 1 == b->getCollisionBitmask()))
+
+
+
+    // check if the Player collide with wall
+    if ((PLAYER == a->getCollisionBitmask() && WALL == b->getCollisionBitmask()) || (WALL == a->getCollisionBitmask() && PLAYER == b->getCollisionBitmask()))
     {
         //float posx = _sprite->getPositionX();
         log("COLLISION HAS OCCURED WITH A WALL");
@@ -167,27 +186,31 @@ bool Game::onContactBegin(cocos2d::PhysicsContact& contact)
         //_sprite->setPosition(posx, _sprite->getPositionY());
         _moveDir = _moveDir * -1;
     }
-    if (((1 == a->getCollisionBitmask() && 3 == b->getCollisionBitmask()) || (3 == a->getCollisionBitmask() && 1 == b->getCollisionBitmask())) && _isGrounded)
+    // check if Player collide with Floor
+    if ((PLAYER == a->getCollisionBitmask() && FLOOR == b->getCollisionBitmask()) || (FLOOR == a->getCollisionBitmask() && PLAYER == b->getCollisionBitmask()))
     {
-
-        log("COLLISION HAS OCCURED WITH JUMP BOX");
-        _spriteBody->applyImpulse(Vec2(0, _jump));
-        _JumpSprite->removeFromParent();
-
-    }
-    else if (((1 == a->getCollisionBitmask() && 3 == b->getCollisionBitmask()) || (3 == a->getCollisionBitmask() && 1 == b->getCollisionBitmask())) && !_isGrounded)
-    {
-    }
-
-    if ((1 == a->getCollisionBitmask() && 4 == b->getCollisionBitmask()) || (4 == a->getCollisionBitmask() && 1 == b->getCollisionBitmask()))
-    {
-
         log("GROUNDED");
         _isGrounded = true;
-
     }
-
-    return true;
+    // check if Player collide with End flag
+    if ((PLAYER == a->getCollisionBitmask() && ENDFLAG == b->getCollisionBitmask()) || (ENDFLAG == a->getCollisionBitmask() && PLAYER == b->getCollisionBitmask()))
+    {
+        auto scene = GameOver::createScene();
+        Director::getInstance()->replaceScene(scene);
+        //Director::getInstance()->pushScene(scene);
+        return true;
+    }
+    // check if PLAYER collide with jump box
+    if (((PLAYER == a->getCollisionBitmask() && JUMPBOX == b->getCollisionBitmask()) || (JUMPBOX == a->getCollisionBitmask() && PLAYER == b->getCollisionBitmask())) && _isGrounded)
+    {
+        log("COLLISION HAS OCCURED WITH JUMP BOX");
+        _spriteBody->applyImpulse(Vec2(0, _jump));
+        b->getOwner()->removeFromParent();
+    }
+    else if (((PLAYER == a->getCollisionBitmask() && JUMPBOX == b->getCollisionBitmask()) || (JUMPBOX == a->getCollisionBitmask() && PLAYER == b->getCollisionBitmask())) && !_isGrounded)
+    {
+    }
+    
 }
 
 
@@ -206,5 +229,5 @@ void Game::onMouseMove(Event* event)
     EventMouse* e = (EventMouse*)event;
     std::string str = "MousePosition X:";
     str = str + std::to_string((int)e->getCursorX()) + " Y:" + std::to_string((int)e->getCursorY());
-    //log(str.c_str());
+    log(str.c_str());
 }
