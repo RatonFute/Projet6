@@ -1,5 +1,3 @@
-
-
 #ifndef __MainMenu_SCENE_H__
 #define __MainMenu_SCENE_H__
 
@@ -15,7 +13,7 @@ public:
     void menuCloseCallback(cocos2d::Ref* pSender);
     void onMouseUp(cocos2d::Event* event);
 
-
+    void Play(cocos2d::Ref* pSender);
     // implement the "static create()" method manually
     CREATE_FUNC(MainMenu);
 

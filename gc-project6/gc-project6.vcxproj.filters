@@ -4,7 +4,7 @@
     <ClCompile Include="Z:\Classes\AppDelegate.cpp">
       <Filter>Source Files\Classes</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\MainMenu.cpp">
+    <ClCompile Include="Z:\Classes\MainMenu.cpp">
       <Filter>Source Files\Classes</Filter>
     </ClCompile>
     <ClCompile Include="Z:\proj.win32\main.cpp">
@@ -13,7 +13,7 @@
     <ClCompile Include="Z:\cocos2d\cocos\precheader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Level1.cpp">
+    <ClCompile Include="Game.cpp">
       <Filter>Source Files\Classes</Filter>
     </ClCompile>
   </ItemGroup>
@@ -21,7 +21,7 @@
     <ClInclude Include="Z:\Classes\AppDelegate.h">
       <Filter>Source Files\Classes</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\MainMenu.h">
+    <ClInclude Include="Z:\Classes\MainMenu.h">
       <Filter>Source Files\Classes</Filter>
     </ClInclude>
     <ClInclude Include="Z:\proj.win32\main.h">
@@ -39,16 +39,46 @@
     <ClInclude Include="Z:\Resources\HelloWorld.png">
       <Filter>Resources</Filter>
     </ClInclude>
+    <ClInclude Include="Z:\Resources\Map.tiled-project">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Z:\Resources\Map.tiled-session">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Z:\Resources\Map.tmx">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Z:\Resources\Map2..tmx">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Z:\Resources\Map3.tmx">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Z:\Resources\fond.tsx">
+      <Filter>Resources</Filter>
+    </ClInclude>
     <ClInclude Include="Z:\Resources\fonts\Marker Felt.ttf">
       <Filter>Resources\fonts</Filter>
     </ClInclude>
     <ClInclude Include="Z:\Resources\fonts\arial.ttf">
       <Filter>Resources\fonts</Filter>
     </ClInclude>
+    <ClInclude Include="Z:\Resources\mario.png">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Z:\Resources\mario.tsx">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Z:\Resources\new.tsx">
+      <Filter>Resources</Filter>
+    </ClInclude>
     <ClInclude Include="Z:\Resources\res\.gitkeep">
       <Filter>Resources\res</Filter>
     </ClInclude>
-    <ClInclude Include="Level1.h">
+    <ClInclude Include="Z:\Resources\uvector-platformer-tileset-desert-2.jpg">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
       <Filter>Source Files\Classes</Filter>
     </ClInclude>
   </ItemGroup>
@@ -79,16 +109,5 @@
     <Filter Include="Source Files\proj.win32">
       <UniqueIdentifier>{498D24FA-EC46-3AEC-A62A-05BAE5BB0E68}</UniqueIdentifier>
     </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Map2.tmx">
-      <Filter>Resources</Filter>
-    </None>
-    <None Include="Map3.tmx">
-      <Filter>Resources</Filter>
-    </None>
-    <None Include="Map.tmx">
-      <Filter>Resources</Filter>
-    </None>
   </ItemGroup>
 </Project>
