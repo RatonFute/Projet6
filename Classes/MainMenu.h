@@ -1,5 +1,3 @@
-
-
 #ifndef __MainMenu_SCENE_H__
 #define __MainMenu_SCENE_H__
 
@@ -16,7 +14,7 @@ public:
     void onMouseUp(cocos2d::Event* event);
     void onTouchesBegan(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event* event);
 
-
+    void Play(cocos2d::Ref* pSender);
     // implement the "static create()" method manually
     CREATE_FUNC(MainMenu);
 

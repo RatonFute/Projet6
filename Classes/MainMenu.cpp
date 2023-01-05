@@ -1,4 +1,5 @@
 #include "MainMenu.h"
+//#include "Game.h" 
 #include <iostream>
 #include <string>
 
@@ -25,6 +26,10 @@ bool MainMenu::init()
 
 
     auto label = Label::createWithTTF("Lemmings World", "fonts/Marker Felt.ttf", 24);
+
+    auto menu_item1 = MenuItemFont::create("Play", CC_CALLBACK_1(MainMenu::Play, this));
+
+
     auto play = Label::createWithTTF("Play", "fonts/Marker Felt.ttf", 20);
     auto options = Label::createWithTTF("Options", "fonts/Marker Felt.ttf", 20);
     //options->enableOutline(Color4B::RED, 1);
@@ -59,6 +64,10 @@ bool MainMenu::init()
     //_eventDispatcher->addEventListenerWithSceneGraphPriority(mouseListener, this);
 
     return true;
+}
+
+void MainMenu::Play(cocos2d::Ref* pSender){
+   // auto scene = Game::CreatScene();
 }
 
 void MainMenu::onMouseUp(Event *event)
