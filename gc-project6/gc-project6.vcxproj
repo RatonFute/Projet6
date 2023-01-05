@@ -809,12 +809,14 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Game.h" />
+    <ClInclude Include="..\Classes\Game.h" />
+    <ClInclude Include="..\Classes\GameOver.h" />
     <ClInclude Include="Z:\Classes\AppDelegate.h" />
     <ClInclude Include="Z:\Classes\MainMenu.h" />
     <ClInclude Include="Z:\proj.win32\main.h" />
     <ClInclude Include="Z:\proj.win32\resource.h" />
-    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="..\Classes\Game.cpp" />
+    <ClCompile Include="..\Classes\GameOver.cpp" />
     <ClCompile Include="Z:\Classes\AppDelegate.cpp" />
     <ClCompile Include="Z:\Classes\MainMenu.cpp" />
     <ClCompile Include="Z:\proj.win32\main.cpp" />

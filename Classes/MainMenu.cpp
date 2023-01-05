@@ -1,5 +1,5 @@
 #include "MainMenu.h"
-//#include "Game.h" 
+#include "Game.h" 
 #include <iostream>
 #include <string>
 
@@ -27,65 +27,36 @@ bool MainMenu::init()
 
     auto label = Label::createWithTTF("Lemmings World", "fonts/Marker Felt.ttf", 24);
 
-    auto menu_item1 = MenuItemFont::create("Play", CC_CALLBACK_1(MainMenu::Play, this));
+    auto menu_item_1 = MenuItemFont::create("Play", CC_CALLBACK_1(MainMenu::Play, this));
+    auto menu_item_2 = MenuItemFont::create("Quit", CC_CALLBACK_1(MainMenu::Quit, this));
 
+    menu_item_1->setPosition(Point(visibleSize.width / 2, (visibleSize.height / 5) * 3));
+    menu_item_2->setPosition(Point(visibleSize.width / 2, (visibleSize.height / 5) * 2));
 
-    auto play = Label::createWithTTF("Play", "fonts/Marker Felt.ttf", 20);
-    auto options = Label::createWithTTF("Options", "fonts/Marker Felt.ttf", 20);
-    //options->enableOutline(Color4B::RED, 1);
-
-    auto quit = Label::createWithTTF("Quit", "fonts/Marker Felt.ttf", 20);
+    auto* menu = Menu::create(menu_item_1, menu_item_2, NULL);
+    menu->setPosition(Point(0, 0));
+    this->addChild(menu);
 
 
     // position the label on the center of the screen
     label->setPosition(Vec2(visibleSize.width/2, visibleSize.height - label->getContentSize().height));
-    play->setPosition(Vec2(visibleSize.width /2, visibleSize.height - label->getContentSize().height *3));
-   
-    options->setPosition(Vec2(visibleSize.width /2, visibleSize.height - label->getContentSize().height *5));
-    quit->setPosition(Vec2(visibleSize.width /2, visibleSize.height - label->getContentSize().height *7));
+    
 
     // add the label as a child to this layer
     this->addChild(label, 1);
-    this->addChild(play, 1);
-    this->addChild(options, 1);
-    this->addChild(quit, 1);
-
-    auto listener = EventListenerTouchAllAtOnce::create();
-    listener->onTouchesBegan = CC_CALLBACK_2(MainMenu::onTouchesBegan, this);
-    //listener->onTouchesMoved = CC_CALLBACK_2(HelloWorld::onTouchesMoved, this);
-    //listener->onTouchesEnded = CC_CALLBACK_2(HelloWorld::onTouchesEnded, this);
-
-    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
-
-
-    //auto mouseListener = EventListenerMouse::create();
-    //mouseListener->onMouseUp = CC_CALLBACK_1(MainMenu::onMouseUp, this);
-
-    //_eventDispatcher->addEventListenerWithSceneGraphPriority(mouseListener, this);
-
+ 
     return true;
 }
 
 void MainMenu::Play(cocos2d::Ref* pSender){
-   // auto scene = Game::CreatScene();
+    auto scene = Game::createScene();
+    Director::getInstance()->replaceScene(scene);
+    //Director::getInstance()->pushScene(scene);
 }
 
-
-//MainMenu::CREATE_FUNC(MainMenu)
-//{
-//}
-
-void MainMenu::menuCloseCallback(Ref* pSender)
-{
-    //Close the cocos2d-x game scene and quit the application
+void MainMenu::Quit(cocos2d::Ref* pSender) {
     Director::getInstance()->end();
-
-    /*To navigate back to native iOS screen(if present) without quitting the application  ,do not use Director::getInstance()->end() as given above,instead trigger a custom event created in RootViewController.mm as below*/
-
-    //EventCustom customEndEvent("game_scene_close_event");
-    //_eventDispatcher->dispatchEvent(&customEndEvent);
-
-
 }
+
 
 

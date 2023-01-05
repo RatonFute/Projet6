@@ -17,7 +17,8 @@ public:
     void update(float dt);
     void onMouseUp(cocos2d::Event* event);
     void onMouseMove(cocos2d::Event* event);
-    auto createWall(char*, float, float, float, float);
+    void End(cocos2d::Ref* pSender);
+    cocos2d::Sprite* createBlock(char*, float, float, float, float, int);
     int _moveDir, _jump;
     float _movement, _time;
     bool _isGrounded, _isJumping;
