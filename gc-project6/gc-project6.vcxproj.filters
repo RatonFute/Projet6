@@ -13,7 +13,7 @@
     <ClCompile Include="Z:\cocos2d\cocos\precheader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Game.cpp">
+    <ClCompile Include="..\Classes\Game.cpp">
       <Filter>Source Files\Classes</Filter>
     </ClCompile>
   </ItemGroup>
@@ -78,7 +78,7 @@
     <ClInclude Include="Z:\Resources\uvector-platformer-tileset-desert-2.jpg">
       <Filter>Resources</Filter>
     </ClInclude>
-    <ClInclude Include="Game.h">
+    <ClInclude Include="..\Classes\Game.h">
       <Filter>Source Files\Classes</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,5 +1,5 @@
 #include "MainMenu.h"
-//#include "Game.h" 
+#include "Game.h" 
 #include <iostream>
 #include <string>
 
@@ -37,6 +37,22 @@ bool MainMenu::init()
     auto quit = Label::createWithTTF("Quit", "fonts/Marker Felt.ttf", 20);
 
 
+    auto menu_item_1 = MenuItemFont::create("Play", CC_CALLBACK_1(MainMenu::Play, this));
+
+    menu_item_1->setPosition(Point(visibleSize.width / 2, (visibleSize.height / 5) * 4));
+
+    auto* menu = Menu::create(menu_item_1, NULL);
+    menu->setPosition(Point(0, 0));
+    this->addChild(menu);
+
+
+
+
+
+
+
+
+
     // position the label on the center of the screen
     label->setPosition(Vec2(visibleSize.width/2, visibleSize.height - label->getContentSize().height));
     play->setPosition(Vec2(visibleSize.width /2, visibleSize.height - label->getContentSize().height *3));
@@ -49,19 +65,21 @@ bool MainMenu::init()
     this->addChild(options, 1);
     this->addChild(quit, 1);
 
-
+    /*
     auto mouseListener = EventListenerMouse::create();
     mouseListener->onMouseUp = CC_CALLBACK_1(MainMenu::onMouseUp, this);
 
     _eventDispatcher->addEventListenerWithSceneGraphPriority(mouseListener, this);
-
+    */
+    log("chips");
     return true;
 }
 
 void MainMenu::Play(cocos2d::Ref* pSender){
-   // auto scene = Game::CreatScene();
+    auto scene = Game::createScene();
+    Director::getInstance()->pushScene(scene);
 }
-
+/*
 void MainMenu::onMouseUp(Event *event)
 {
     EventMouse* e = (EventMouse*)event;
@@ -70,7 +88,7 @@ void MainMenu::onMouseUp(Event *event)
     //Rect playbox = this->play->getBoundingBox();
     //e->getCursorX() + e->getCursorY();
 
-}
+}*/
 
 void MainMenu::menuCloseCallback(Ref* pSender)
 {

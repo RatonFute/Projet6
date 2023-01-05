@@ -16,9 +16,9 @@ static void problemLoading(const char* filename)
 }
 
 Game::Game() {
-    _sprite = Sprite::create("pokemon.png");
+    _sprite = Sprite::create("CloseSelected.png");
     _JumpSprite = Sprite::create("CloseSelected.png");
-    _spriteBody = PhysicsBody::createBox(Size(85.0f, 120.0f), PhysicsMaterial(0.0f, 1.5f, 0.2f));
+    _spriteBody = PhysicsBody::createBox(Size(20.0f, 20.0f), PhysicsMaterial(0.0f, 1.5f, 0.2f));
     _JumpBox = PhysicsBody::createBox(Size(50, 50), PhysicsMaterial(0.0f, 0.0f, 0.0f));
     _moveDir = -1;
     _jump = 450.0;
@@ -28,18 +28,7 @@ Game::Game() {
 
 Game::~Game() {}
 
-//path, posX, posY, sizeX, sizeY
-auto Game::createWall(char* SpritePath, float posX, float posY, float sizeX, float sizeY)
-{
-    cocos2d::Sprite* spriteBox = Sprite::create(SpritePath);
-    spriteBox->setPosition(Vec2(posX, posY));
-    cocos2d::PhysicsBody* Box = PhysicsBody::createBox(Size(sizeX, sizeY), PhysicsMaterial(0.0f, 0.0f, 0.0f));
-    Box->setDynamic(false);
-    Box->setCollisionBitmask(2);
-    Box->setContactTestBitmask(true);
-    spriteBox->addComponent(Box);
-    return spriteBox;
-}
+
 
 // on "init" you need to initialize your instance
 bool Game::init()
@@ -101,8 +90,8 @@ bool Game::init()
     _eventDispatcher->addEventListenerWithSceneGraphPriority(mouseListener, this);
 
     char* path = "CloseSelected.png";
-    char* path2 = "Game.png";
-    char* poke = "./img/pokemon.png";
+    char* path2 = "CloseSelected.png";
+    char* poke = "CloseSelected.png";
 
     //walls
     auto Lwall = createWall(path2, origin.x, visibleSize.height / 2 + origin.y, 5.0, 320.0);
@@ -137,7 +126,18 @@ bool Game::init()
     return true;
 }
 
-
+//path, posX, posY, sizeX, sizeY
+cocos2d::Sprite* Game::createWall(char* SpritePath, float posX, float posY, float sizeX, float sizeY)
+{
+    cocos2d::Sprite* spriteBox = Sprite::create(SpritePath);
+    spriteBox->setPosition(Vec2(posX, posY));
+    cocos2d::PhysicsBody* Box = PhysicsBody::createBox(Size(sizeX, sizeY), PhysicsMaterial(0.0f, 0.0f, 0.0f));
+    Box->setDynamic(false);
+    Box->setCollisionBitmask(2);
+    Box->setContactTestBitmask(true);
+    spriteBox->addComponent(Box);
+    return spriteBox;
+}
 
 void Game::update(float dt) {
 
