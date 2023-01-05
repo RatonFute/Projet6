@@ -14,13 +14,14 @@ public:
 
     void menuCloseCallback(cocos2d::Ref* pSender);
     void onMouseUp(cocos2d::Event* event);
+    void onTouchesBegan(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event* event);
 
 
     // implement the "static create()" method manually
     CREATE_FUNC(MainMenu);
 
-//protected:
-//    Label play;
+protected:
+    //Label* play;
 //    Label* options;
 //    Label* quit;
 };

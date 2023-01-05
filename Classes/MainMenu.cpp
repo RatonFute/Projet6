@@ -35,8 +35,9 @@ bool MainMenu::init()
     // position the label on the center of the screen
     label->setPosition(Vec2(visibleSize.width/2, visibleSize.height - label->getContentSize().height));
     play->setPosition(Vec2(visibleSize.width /2, visibleSize.height - label->getContentSize().height *3));
-    options->setPosition(Vec2(visibleSize.width /2, visibleSize.height - label->getContentSize().height *4));
-    quit->setPosition(Vec2(visibleSize.width /2, visibleSize.height - label->getContentSize().height *5));
+   
+    options->setPosition(Vec2(visibleSize.width /2, visibleSize.height - label->getContentSize().height *5));
+    quit->setPosition(Vec2(visibleSize.width /2, visibleSize.height - label->getContentSize().height *7));
 
     // add the label as a child to this layer
     this->addChild(label, 1);
@@ -44,24 +45,39 @@ bool MainMenu::init()
     this->addChild(options, 1);
     this->addChild(quit, 1);
 
+    auto listener = EventListenerTouchAllAtOnce::create();
+    listener->onTouchesBegan = CC_CALLBACK_2(MainMenu::onTouchesBegan, this);
+    //listener->onTouchesMoved = CC_CALLBACK_2(HelloWorld::onTouchesMoved, this);
+    //listener->onTouchesEnded = CC_CALLBACK_2(HelloWorld::onTouchesEnded, this);
 
-    auto mouseListener = EventListenerMouse::create();
-    mouseListener->onMouseUp = CC_CALLBACK_1(MainMenu::onMouseUp, this);
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
-    _eventDispatcher->addEventListenerWithSceneGraphPriority(mouseListener, this);
+
+    //auto mouseListener = EventListenerMouse::create();
+    //mouseListener->onMouseUp = CC_CALLBACK_1(MainMenu::onMouseUp, this);
+
+    //_eventDispatcher->addEventListenerWithSceneGraphPriority(mouseListener, this);
 
     return true;
 }
 
 void MainMenu::onMouseUp(Event *event)
 {
-    EventMouse* e = (EventMouse*)event;
+    auto myScene = Scene::create();
+
+   /* EventMouse* e = (EventMouse*)event;
     int b = int (e->getMouseButton());
     Vec2 Mousep = e->getLocationInView();
-    //Rect playbox = this->play->getBoundingBox();
-    //e->getCursorX() + e->getCursorY();
-
+    Rect startbox = this->play->getBoundingBox();
+    if (startbox.containsPoint(Mousep)) {
+        Director::getInstance()->replaceScene(myScene);
+        std::cout << "nn";
+    }*/
 }
+
+//MainMenu::CREATE_FUNC(MainMenu)
+//{
+//}
 
 void MainMenu::menuCloseCallback(Ref* pSender)
 {
