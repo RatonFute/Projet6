@@ -18,10 +18,7 @@ public:
     // implement the "static create()" method manually
     CREATE_FUNC(MainMenu);
 
-protected:
-    //Label* play;
-//    Label* options;
-//    Label* quit;
+
 };
 
 #endif // __MainMenu_SCENE_H__

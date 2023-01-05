@@ -70,19 +70,6 @@ void MainMenu::Play(cocos2d::Ref* pSender){
    // auto scene = Game::CreatScene();
 }
 
-void MainMenu::onMouseUp(Event *event)
-{
-    auto myScene = Scene::create();
-
-   /* EventMouse* e = (EventMouse*)event;
-    int b = int (e->getMouseButton());
-    Vec2 Mousep = e->getLocationInView();
-    Rect startbox = this->play->getBoundingBox();
-    if (startbox.containsPoint(Mousep)) {
-        Director::getInstance()->replaceScene(myScene);
-        std::cout << "nn";
-    }*/
-}
 
 //MainMenu::CREATE_FUNC(MainMenu)
 //{
