@@ -827,8 +827,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="Z:\Resources\Map.tiled-project" />
     <ClInclude Include="Z:\Resources\Map.tiled-session" />
     <ClInclude Include="Z:\Resources\Map.tmx" />
-    <ClInclude Include="Z:\Resources\Map2..tmx" />
-    <ClInclude Include="Z:\Resources\Map3.tmx" />
     <ClInclude Include="Z:\Resources\fond.tsx" />
     <ClInclude Include="Z:\Resources\fonts\Marker Felt.ttf" />
     <ClInclude Include="Z:\Resources\fonts\arial.ttf" />
@@ -900,6 +898,11 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <Project>{C67C6437-8B29-349E-A1C4-4E47144C57F7}</Project>
       <Name>external</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Resources\explosion.png" />
+    <Image Include="..\Resources\explosion2.png" />
+    <Image Include="..\Resources\pickaxe.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

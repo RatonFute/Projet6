@@ -52,9 +52,8 @@ bool Game::init()
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-    auto map = TMXTiledMap::create("Map.tmx");
-    this->addChild(map);
-
+    MapColl();
+    ActionMenu();
 
     if (_sprite == nullptr)
     {
@@ -64,32 +63,16 @@ bool Game::init()
     {
         for (int i = 0; i < 3; i++) {
             _sprite = Sprite::create("CloseSelected.png");
-            _sprite->setPosition(Vec2(450, 200));
+            _sprite->setPosition(Vec2(50, 250));
             _spriteBody = PhysicsBody::createBox(Size(20.0f, 20.0f), PhysicsMaterial(0.0f, 1.5f, 0.2f));
             _spriteBody->setDynamic(true);
-            _spriteBody->setVelocityLimit(200.0);
+            _spriteBody->setVelocityLimit(110);
             _spriteBody->setRotationEnable(false);
             _spriteBody->setCollisionBitmask(1);
             _spriteBody->setContactTestBitmask(true);
             _sprite->addComponent(_spriteBody);
         }
         //player
-        
-    }
-
-    auto label = Label::createWithTTF("Hello World", "fonts/Marker Felt.ttf", 24);
-    if (label == nullptr)
-    {
-        problemLoading("'fonts/Marker Felt.ttf'");
-    }
-    else
-    {
-        // position the label on the center of the screen
-        label->setPosition(Vec2(origin.x + visibleSize.width / 2,
-            origin.y + visibleSize.height - label->getContentSize().height));
-
-        // add the label as a child to this layer
-        this->addChild(label, 1);
     }
 
     //collision listener
@@ -97,45 +80,30 @@ bool Game::init()
     contactListener->onContactBegin = CC_CALLBACK_1(Game::onContactBegin, this);
     this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(contactListener, this);
 
-    //mouse position and click release listener
-    auto mouseListener = EventListenerMouse::create();
-    mouseListener->onMouseMove = CC_CALLBACK_1(Game::onMouseMove, this);
-    mouseListener->onMouseUp = CC_CALLBACK_1(Game::onMouseUp, this);
-    _eventDispatcher->addEventListenerWithSceneGraphPriority(mouseListener, this);
-
     char* path = "CloseSelected.png";
-    char* path2 = "CloseSelected.png";
-    char* poke = "CloseSelected.png";
+    //char* path2 = "CloseSelected.png";
+    //char* poke = "CloseSelected.png";
 
     //----------------SPRITES----------------
     
-    //walls
-    Sprite* Lwall = createBlock(path2, origin.x, visibleSize.height / 2 + origin.y, 5.0, 320.0, WALL);
-    Sprite* Rwall = createBlock(path2, visibleSize.width + origin.x, visibleSize.height / 2 + origin.y, 5.0, 320.0, WALL);
-    Sprite* wallTopR = createBlock(path2, 280, 180, 5.0, 50.0, WALL);
+//    //walls
+    Sprite* Lwall = createBlock(path, origin.x, visibleSize.height / 2 + origin.y, 5.0, 320.0, WALL);
+    Sprite* Rwall = createBlock(path, visibleSize.width + origin.x, visibleSize.height / 2 + origin.y, 5.0, 320.0, WALL);
+    Sprite* wallTopR = createBlock(path, 280, 180, 5.0, 50.0, WALL);
     addChild(Lwall);
+    
     addChild(Rwall);
-    addChild(wallTopR);
-
-    //Floor
-    Sprite* FloorLvl = createBlock(path, visibleSize.width / 2 + origin.x, origin.y, visibleSize.width, 5.0, FLOOR);
-    Sprite* Plat1 = createBlock(path, 120, 100, 260, 15.0, FLOOR);
-    Sprite* Plat2 = createBlock(path, 400, 160, 260, 15.0, FLOOR);
-    addChild(FloorLvl);
-    addChild(Plat1);
-    addChild(Plat2);
+    //addChild(wallTopR);
 
     //end flag
-    Sprite* Flag = createBlock(path, 120, 120, 5, 50.0, ENDFLAG);
+    Sprite* Flag = createBlock(path, 200, 200, 5, 50.0, ENDFLAG);
     addChild(Flag);
 
-    //jump box
-    Sprite* JumpBox = createBlock(path, 300, 170, 20, 20, JUMPBOX);
-    addChild(JumpBox);
+//    //jump box
+    //Sprite* JumpBox = createBlock(path, 300, 100, 20, 20, JUMPBOX);
+    //addChild(JumpBox);
 
     addChild(_sprite);
-
-
 
     this->scheduleUpdate();
     return true;
@@ -151,10 +119,38 @@ cocos2d::Sprite* Game::createBlock(char* SpritePath, float posX, float posY, flo
     Box->setCollisionBitmask(ColCat);
     Box->setContactTestBitmask(true);
     spriteBox->addComponent(Box);
+
     return spriteBox;
 }
 
+void Game::ActionMenu()
+{
+    auto visibleSize = Director::getInstance()->getVisibleSize();
 
+    auto menu_item_1 = MenuItemImage::create("pickaxe.png", "pickaxe.png", CC_CALLBACK_1(Game::Kamikaze, this));
+    auto menu_item_2 = MenuItemImage::create("pickaxe.png", "pickaxe.png", CC_CALLBACK_1(Game::Kamikaze, this));
+    auto menu_item_3 = MenuItemImage::create("explosion.png", "explosion2.png", CC_CALLBACK_1(Game::Kamikaze, this));
+    auto menu_item_4 = MenuItemImage::create("explosion.png","explosion2.png", CC_CALLBACK_1(Game::Kamikaze, this));
+    auto menu_item_5 = MenuItemImage::create("explosion.png","explosion2.png", CC_CALLBACK_1(Game::Kamikaze, this));
+
+    auto* menu = Menu::create(menu_item_1, menu_item_2, menu_item_3, menu_item_4, menu_item_5, NULL);
+    menu->setPosition(Vec2(250, 57));
+    menu->alignItemsHorizontally();
+    this->addChild(menu);
+
+}
+
+void Game::Kamikaze(cocos2d::Ref* pSender)
+{
+}
+
+void Game::Builder(cocos2d::Ref* pSender)
+{
+}
+
+void Game::Jumper(cocos2d::Ref* pSender)
+{
+}
 
 void Game::update(float dt) {
 
@@ -165,7 +161,6 @@ void Game::update(float dt) {
         _time = 0;
         Director::getInstance()->popScene();
     }
-
 }
 
 //----------------------COLLISION MANAGEMENT-----------------------
@@ -173,9 +168,6 @@ bool Game::onContactBegin(cocos2d::PhysicsContact& contact)
 {
     PhysicsBody* a = contact.getShapeA()->getBody();
     PhysicsBody* b = contact.getShapeB()->getBody();
-
-
-
 
     // check if the Player collide with wall
     if ((PLAYER == a->getCollisionBitmask() && WALL == b->getCollisionBitmask()) || (WALL == a->getCollisionBitmask() && PLAYER == b->getCollisionBitmask()))
@@ -187,7 +179,7 @@ bool Game::onContactBegin(cocos2d::PhysicsContact& contact)
         _moveDir = _moveDir * -1;
     }
     // check if Player collide with Floor
-    if ((PLAYER == a->getCollisionBitmask() && FLOOR == b->getCollisionBitmask()) || (FLOOR == a->getCollisionBitmask() && PLAYER == b->getCollisionBitmask()))
+    if ((PLAYER == a->getCollisionBitmask() && FLOOR == b->getCollisionBitmask()) || (WALL == a->getCollisionBitmask() && PLAYER == b->getCollisionBitmask()))
     {
         log("GROUNDED");
         _isGrounded = true;
@@ -210,24 +202,33 @@ bool Game::onContactBegin(cocos2d::PhysicsContact& contact)
     else if (((PLAYER == a->getCollisionBitmask() && JUMPBOX == b->getCollisionBitmask()) || (JUMPBOX == a->getCollisionBitmask() && PLAYER == b->getCollisionBitmask())) && !_isGrounded)
     {
     }
-    
 }
 
-
-void Game::onMouseUp(Event* event)
+void Game::MapColl()
 {
-    // to illustrate the event....
-    EventMouse* e = (EventMouse*)event;
-    std::string str = "Mouse Up detected, Key: ";
-    str += std::to_string((int)e->getMouseButton());
-    //log(str.c_str());
-}
+    auto map = TMXTiledMap::create("Map.tmx");
+    this->addChild(map);
 
-void Game::onMouseMove(Event* event)
-{
-    // to illustrate the event....
-    EventMouse* e = (EventMouse*)event;
-    std::string str = "MousePosition X:";
-    str = str + std::to_string((int)e->getCursorX()) + " Y:" + std::to_string((int)e->getCursorY());
-    log(str.c_str());
+
+    TMXObjectGroup* collisions_SOL = map->getObjectGroup("Collide");
+    ValueVector& rectangle_array_SOL = collisions_SOL->getObjects();
+
+    for (cocos2d::Value& rectangle_box_SOL : rectangle_array_SOL) {
+        cocos2d::ValueMap rectangle_box_properties = rectangle_box_SOL.asValueMap();
+
+        Node* node = Node::create();
+        PhysicsBody* box = PhysicsBody::createEdgeBox(Size(rectangle_box_properties["width"].asInt(), rectangle_box_properties["height"].asInt()));
+        box->setCollisionBitmask(3);
+        box->setContactTestBitmask(true);
+
+        node->setPhysicsBody(box);
+
+        node->setPositionX(rectangle_box_properties["x"].asInt() + rectangle_box_properties["width"].asInt() / 2);
+        node->setPositionY(rectangle_box_properties["y"].asInt() + rectangle_box_properties["height"].asInt() / 2);
+
+        box->setGravityEnable(false);
+        box->setDynamic(false);
+        node->setVisible(false);
+        this->addChild(node, 20);
+    }
 }

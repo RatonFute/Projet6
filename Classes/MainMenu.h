@@ -11,6 +11,7 @@ public:
     virtual bool init();
 
     void Play(cocos2d::Ref* pSender);
+    void Options(cocos2d::Ref* pSender);
     void Quit(cocos2d::Ref* pSender);
     // implement the "static create()" method manually
     CREATE_FUNC(MainMenu);

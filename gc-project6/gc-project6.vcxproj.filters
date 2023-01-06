@@ -51,12 +51,6 @@
     <ClInclude Include="Z:\Resources\Map.tmx">
       <Filter>Resources</Filter>
     </ClInclude>
-    <ClInclude Include="Z:\Resources\Map2..tmx">
-      <Filter>Resources</Filter>
-    </ClInclude>
-    <ClInclude Include="Z:\Resources\Map3.tmx">
-      <Filter>Resources</Filter>
-    </ClInclude>
     <ClInclude Include="Z:\Resources\fond.tsx">
       <Filter>Resources</Filter>
     </ClInclude>
@@ -115,5 +109,16 @@
     <Filter Include="Source Files\proj.win32">
       <UniqueIdentifier>{498D24FA-EC46-3AEC-A62A-05BAE5BB0E68}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Resources\explosion.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\Resources\explosion2.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\Resources\pickaxe.png">
+      <Filter>Resources</Filter>
+    </Image>
   </ItemGroup>
 </Project>
