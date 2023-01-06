@@ -91,14 +91,23 @@ bool Game::init()
     */
 
     char* path = "CloseSelected.png";
-    //char* path2 = "CloseSelected.png";
-    //char* poke = "CloseSelected.png";
+    char* path2 = "transparent.png";
+    char* box = "box2.png";
+    
 
     //----------------SPRITES----------------
     
 //    //walls
-    Sprite* Lwall = createBlock(path, origin.x, visibleSize.height / 2 + origin.y, 5.0, visibleSize.height, WALL);
-    Sprite* Rwall = createBlock(path, visibleSize.width + origin.x, visibleSize.height / 2 + origin.y, 5.0, visibleSize.height, WALL);
+    Sprite* Lwall = createBlock(path2, origin.x, visibleSize.height / 2 + origin.y, 5.0, visibleSize.height, WALL);
+    Sprite* Rwall = createBlock(path2, visibleSize.width + origin.x, visibleSize.height / 2 + origin.y, 5.0, visibleSize.height, WALL);
+    Sprite* Box = createBlock(box, 200, 140, 20, 19, WALL);
+    Sprite* BoxF = createBlock(path2, 200, 150, 20, 1, FLOOR);
+    Sprite* Box2 = createBlock(box, 80, 140, 20, 19, WALL);
+    Sprite* BoxF2 = createBlock(path2, 80, 150, 20, 1, FLOOR);
+    addChild(Box);
+    addChild(BoxF);
+    addChild(Box2);
+    addChild(BoxF2);
     addChild(Lwall);  
     addChild(Rwall);
 
@@ -110,9 +119,7 @@ bool Game::init()
     Sprite* Flag = createBlock(path, 465, 135, 30, 30, ENDFLAG);
     addChild(Flag);
 
-//    //jump box
-    //Sprite* JumpBox = createBlock(path, 400, 110, 20, 20, JUMPBOX);
-    //addChild(JumpBox);
+    
 
     addChild(_sprite);
 
