@@ -30,9 +30,9 @@ public:
     void Jumper(cocos2d::Ref* pSender);
 
     cocos2d::Sprite* createBlock(char*, float, float, float, float, int);
-    int _moveDir, _jump;
+    int _moveDir, _jump, count;
     float _movement, _time;
-    bool _isGrounded, _isJumping;
+    bool _isGrounded, _isJumping, active;
     bool onContactBegin(cocos2d::PhysicsContact& contact);
     // implement the "static create()" method manually
     CREATE_FUNC(Game);

@@ -44,7 +44,8 @@ bool GameOver::init()
     
     // add the label as a child to this layer
     this->addChild(label, 1);
-    
+
+   
     return true;
 }
 
@@ -58,6 +59,8 @@ void GameOver::BackToMenu(cocos2d::Ref* pSender) {
     Director::getInstance()->replaceScene(scene);
     //Director::getInstance()->pushScene(scene);
 }
+
+
 
 
 

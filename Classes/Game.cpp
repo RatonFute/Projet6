@@ -9,6 +9,8 @@
 #define FLOOR 3
 #define ENDFLAG 4
 #define JUMPBOX 5
+#define DWALL 6
+#define KILL 7
 
 USING_NS_CC;
 
@@ -30,7 +32,7 @@ Game::Game() {
     
     _JumpBox = PhysicsBody::createBox(Size(50, 50), PhysicsMaterial(0.0f, 0.0f, 0.0f));
     _moveDir = -1;
-    _jump = 300.0;
+    _jump = 200.0;
     _time = 30.0;
     _isJumping = false;
 }
@@ -80,6 +82,14 @@ bool Game::init()
     contactListener->onContactBegin = CC_CALLBACK_1(Game::onContactBegin, this);
     this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(contactListener, this);
 
+    /*
+    //mouse position and click release listener
+    auto mouseListener = EventListenerMouse::create();
+    mouseListener = onMouseMove->CC_CALLBACK_1(Game::onMouseMove, this);
+    mouseListener = onMouseUp->CC_CALLBACK_1(Game::onMouseUp, this);
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(mouseListener, this);
+    */
+
     char* path = "CloseSelected.png";
     //char* path2 = "CloseSelected.png";
     //char* poke = "CloseSelected.png";
@@ -87,13 +97,14 @@ bool Game::init()
     //----------------SPRITES----------------
     
 //    //walls
-    Sprite* Lwall = createBlock(path, origin.x, visibleSize.height / 2 + origin.y, 5.0, 320.0, WALL);
-    Sprite* Rwall = createBlock(path, visibleSize.width + origin.x, visibleSize.height / 2 + origin.y, 5.0, 320.0, WALL);
-    Sprite* wallTopR = createBlock(path, 280, 180, 5.0, 50.0, WALL);
-    addChild(Lwall);
-    
+    Sprite* Lwall = createBlock(path, origin.x, visibleSize.height / 2 + origin.y, 5.0, visibleSize.height, WALL);
+    Sprite* Rwall = createBlock(path, visibleSize.width + origin.x, visibleSize.height / 2 + origin.y, 5.0, visibleSize.height, WALL);
+    addChild(Lwall);  
     addChild(Rwall);
-    //addChild(wallTopR);
+
+    Sprite* death = createBlock(path, visibleSize.width / 2 + origin.x,origin.y, visibleSize.width, 5.0 , KILL);
+    addChild(death);
+
 
     //end flag
     Sprite* Flag = createBlock(path, 465, 135, 30, 30, ENDFLAG);
@@ -104,6 +115,8 @@ bool Game::init()
     //addChild(JumpBox);
 
     addChild(_sprite);
+
+
 
     this->scheduleUpdate();
     return true;
@@ -126,15 +139,21 @@ cocos2d::Sprite* Game::createBlock(char* SpritePath, float posX, float posY, flo
 void Game::ActionMenu()
 {
     auto visibleSize = Director::getInstance()->getVisibleSize();
+    Vec2 origin = Director::getInstance()->getVisibleOrigin();
+    if (count > 5) {
+        auto menu_item_1 = MenuItemImage::create("jumpicon.png", "jumpiconsel.png", CC_CALLBACK_1(Game::Jumper, this));
+        count-=1;
+    }
 
     auto menu_item_1 = MenuItemImage::create("jumpicon.png", "jumpiconsel.png", CC_CALLBACK_1(Game::Jumper, this));
-    auto menu_item_2 = MenuItemImage::create("pickaxe.png", "pickaxe.png", CC_CALLBACK_1(Game::Kamikaze, this));
+    /*auto menu_item_2 = MenuItemImage::create("pickaxe.png", "explosion.png", CC_CALLBACK_1(Game::Builder, this));
     auto menu_item_3 = MenuItemImage::create("explosion.png", "explosion2.png", CC_CALLBACK_1(Game::Kamikaze, this));
     auto menu_item_4 = MenuItemImage::create("explosion.png","explosion2.png", CC_CALLBACK_1(Game::Kamikaze, this));
     auto menu_item_5 = MenuItemImage::create("explosion.png","explosion2.png", CC_CALLBACK_1(Game::Kamikaze, this));
+    */
 
-    auto* menu = Menu::create(menu_item_1, menu_item_2, menu_item_3, menu_item_4, menu_item_5, NULL);
-    menu->setPosition(Vec2(250, 57));
+    auto* menu = Menu::create(menu_item_1,/* menu_item_2, menu_item_3, menu_item_4, menu_item_5, */ NULL);
+    menu->setPosition(Vec2(visibleSize.width / 2 + origin.x, 50));
     menu->alignItemsHorizontally();
     this->addChild(menu);
 
@@ -142,11 +161,15 @@ void Game::ActionMenu()
 
 void Game::Kamikaze(cocos2d::Ref* pSender)
 {
+    
 }
 
 void Game::Builder(cocos2d::Ref* pSender)
 {
+
 }
+
+
 
 void Game::Jumper(cocos2d::Ref* pSender)
 {
@@ -190,7 +213,6 @@ bool Game::onContactBegin(cocos2d::PhysicsContact& contact)
     {
         auto scene = GameOver::createScene();
         Director::getInstance()->replaceScene(scene);
-        //Director::getInstance()->pushScene(scene);
         return true;
     }
     // check if PLAYER collide with jump box
@@ -202,6 +224,13 @@ bool Game::onContactBegin(cocos2d::PhysicsContact& contact)
     }
     else if (((PLAYER == a->getCollisionBitmask() && JUMPBOX == b->getCollisionBitmask()) || (JUMPBOX == a->getCollisionBitmask() && PLAYER == b->getCollisionBitmask())) && !_isGrounded)
     {
+    }
+    // death
+    if ((PLAYER == a->getCollisionBitmask() && KILL == b->getCollisionBitmask()) || (KILL == a->getCollisionBitmask() && PLAYER == b->getCollisionBitmask()))
+    {
+        auto scene = GameOver::createScene();
+        Director::getInstance()->replaceScene(scene);
+        return true;
     }
 }
 
@@ -229,7 +258,24 @@ void Game::MapColl()
 
         box->setGravityEnable(false);
         box->setDynamic(false);
-        node->setVisible(false);
         this->addChild(node, 20);
     }
+}
+
+
+void Game::onMouseUp(Event* event)
+{
+    // to illustrate the event....
+    EventMouse* e = (EventMouse*)event;
+    std::string str = "Mouse Up detected, Key: ";
+    str += std::to_string((int)e->getMouseButton());
+    //log(str.c_str());
+}
+void Game::onMouseMove(Event* event)
+{
+    // to illustrate the event....
+    EventMouse* e = (EventMouse*)event;
+    std::string str = "MousePosition X:";
+    str = str + std::to_string((int)e->getCursorX()) + " Y:" + std::to_string((int)e->getCursorY());
+    //log(str.c_str());
 }
