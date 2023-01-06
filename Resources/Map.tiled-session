@@ -3,41 +3,44 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "Map2.tmx",
+    "activeFile": "Map.tmx",
     "expandedProjectPaths": [
         "."
     ],
     "fileStates": {
         "Map.tmx": {
-            "scale": 0.4371759259259259,
-            "selectedLayer": 0,
+            "expandedObjectLayers": [
+                6
+            ],
+            "scale": 0.5,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 809.7426665254685,
-                "y": 495.2239754315366
+                "x": 837,
+                "y": 343
             }
         },
         "Map2..tmx": {
             "scale": 0.2459114583333333,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 3001.080165201737,
-                "y": 636.4079212114794
+                "x": 3889.6113523244735,
+                "y": 839.7331356560416
             }
         },
         "Map2.tmx": {
             "scale": 0.4537239583333333,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 958.7327096366873,
-                "y": 545.4858520346668
+                "x": 1596.7858577742068,
+                "y": 635.8491648969753
             }
         },
         "Map3.tmx": {
             "scale": 0.2459114583333333,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 963.7615164672245,
-                "y": 546.9448268558722
+                "x": 965.7947686116703,
+                "y": 546.944826855872
             }
         },
         "Map4.tmx": {
@@ -64,15 +67,14 @@
         "Map.tmx",
         "Map2.tmx",
         "Map3.tmx",
-        "Map2..tmx",
-        "Map4.tmx"
+        "Map2..tmx"
     ],
     "project": "Map.tiled-project",
     "recentFiles": [
-        "Map.tmx",
-        "Map4.tmx",
         "Map2..tmx",
         "Map3.tmx",
-        "Map2.tmx"
+        "Map2.tmx",
+        "Map.tmx",
+        "Map4.tmx"
     ]
 }
