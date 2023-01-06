@@ -1,0 +1,78 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "Map2.tmx",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "fileStates": {
+        "Map.tmx": {
+            "scale": 0.4371759259259259,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 809.7426665254685,
+                "y": 495.2239754315366
+            }
+        },
+        "Map2..tmx": {
+            "scale": 0.2459114583333333,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 3001.080165201737,
+                "y": 636.4079212114794
+            }
+        },
+        "Map2.tmx": {
+            "scale": 0.4537239583333333,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 958.7327096366873,
+                "y": 545.4858520346668
+            }
+        },
+        "Map3.tmx": {
+            "scale": 0.2459114583333333,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 963.7615164672245,
+                "y": 546.9448268558722
+            }
+        },
+        "Map4.tmx": {
+            "scale": 0.537746913580247,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 421.2018596108592,
+                "y": 403.53555644837274
+            }
+        },
+        "mario.tsx": {
+            "scaleInDock": 1
+        },
+        "new.tsx": {
+            "scaleInDock": 0.75
+        }
+    },
+    "last.exportedFilePath": "Z:/Resources",
+    "map.height": 34,
+    "map.lastUsedExportFilter": "Tous les Fichiers (*)",
+    "map.lastUsedFormat": "tmx",
+    "map.width": 60,
+    "openFiles": [
+        "Map.tmx",
+        "Map2.tmx",
+        "Map3.tmx",
+        "Map2..tmx",
+        "Map4.tmx"
+    ],
+    "project": "Map.tiled-project",
+    "recentFiles": [
+        "Map.tmx",
+        "Map4.tmx",
+        "Map2..tmx",
+        "Map3.tmx",
+        "Map2.tmx"
+    ]
+}

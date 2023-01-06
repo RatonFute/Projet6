@@ -26,7 +26,7 @@ bool GameOver::init()
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
 
-    auto label = Label::createWithTTF("Game Over", "fonts/Marker Felt.ttf", 34);
+    auto label = Label::createWithTTF("Game ended", "fonts/Marker Felt.ttf", 34);
 
     auto menu_item1 = MenuItemFont::create("Play again", CC_CALLBACK_1(GameOver::PlayAgain, this));
     auto menu_item2 = MenuItemFont::create("Back to menu", CC_CALLBACK_1(GameOver::BackToMenu, this));

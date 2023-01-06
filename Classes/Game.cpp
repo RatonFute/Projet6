@@ -30,7 +30,7 @@ Game::Game() {
     
     _JumpBox = PhysicsBody::createBox(Size(50, 50), PhysicsMaterial(0.0f, 0.0f, 0.0f));
     _moveDir = -1;
-    _jump = 450.0;
+    _jump = 300.0;
     _time = 30.0;
     _isJumping = false;
 }
@@ -47,7 +47,7 @@ bool Game::init()
 
     }
     getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
-    getPhysicsWorld()->setGravity(Vect(0.0f, -200.0f));
+    getPhysicsWorld()->setGravity(Vect(0.0f, -400.0f));
     Director* director = Director::getInstance();
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
@@ -64,9 +64,9 @@ bool Game::init()
         for (int i = 0; i < 3; i++) {
             _sprite = Sprite::create("CloseSelected.png");
             _sprite->setPosition(Vec2(50, 250));
-            _spriteBody = PhysicsBody::createBox(Size(20.0f, 20.0f), PhysicsMaterial(0.0f, 1.5f, 0.2f));
+            _spriteBody = PhysicsBody::createBox(Size(20.0f, 20.0f), PhysicsMaterial(0.0f, 0.1f, 0.2f));
             _spriteBody->setDynamic(true);
-            _spriteBody->setVelocityLimit(110);
+            _spriteBody->setVelocityLimit(500);
             _spriteBody->setRotationEnable(false);
             _spriteBody->setCollisionBitmask(1);
             _spriteBody->setContactTestBitmask(true);
@@ -96,11 +96,11 @@ bool Game::init()
     //addChild(wallTopR);
 
     //end flag
-    Sprite* Flag = createBlock(path, 200, 200, 5, 50.0, ENDFLAG);
+    Sprite* Flag = createBlock(path, 465, 135, 30, 30, ENDFLAG);
     addChild(Flag);
 
 //    //jump box
-    //Sprite* JumpBox = createBlock(path, 300, 100, 20, 20, JUMPBOX);
+    //Sprite* JumpBox = createBlock(path, 400, 110, 20, 20, JUMPBOX);
     //addChild(JumpBox);
 
     addChild(_sprite);
@@ -127,7 +127,7 @@ void Game::ActionMenu()
 {
     auto visibleSize = Director::getInstance()->getVisibleSize();
 
-    auto menu_item_1 = MenuItemImage::create("pickaxe.png", "pickaxe.png", CC_CALLBACK_1(Game::Kamikaze, this));
+    auto menu_item_1 = MenuItemImage::create("jumpicon.png", "jumpiconsel.png", CC_CALLBACK_1(Game::Jumper, this));
     auto menu_item_2 = MenuItemImage::create("pickaxe.png", "pickaxe.png", CC_CALLBACK_1(Game::Kamikaze, this));
     auto menu_item_3 = MenuItemImage::create("explosion.png", "explosion2.png", CC_CALLBACK_1(Game::Kamikaze, this));
     auto menu_item_4 = MenuItemImage::create("explosion.png","explosion2.png", CC_CALLBACK_1(Game::Kamikaze, this));
@@ -150,6 +150,7 @@ void Game::Builder(cocos2d::Ref* pSender)
 
 void Game::Jumper(cocos2d::Ref* pSender)
 {
+    _spriteBody->applyImpulse(Vec2(0, _jump));
 }
 
 void Game::update(float dt) {
@@ -218,7 +219,7 @@ void Game::MapColl()
 
         Node* node = Node::create();
         PhysicsBody* box = PhysicsBody::createEdgeBox(Size(rectangle_box_properties["width"].asInt(), rectangle_box_properties["height"].asInt()));
-        box->setCollisionBitmask(3);
+        box->setCollisionBitmask(FLOOR);
         box->setContactTestBitmask(true);
 
         node->setPhysicsBody(box);
